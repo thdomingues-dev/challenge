@@ -1,0 +1,96 @@
+#home-page {
+  background: url('../assets/background.svg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: #fff;
+}
+
+.page-content {
+  margin-left: 6.625rem;
+  max-width: 28.125rem;
+}
+
+.page-title {
+  margin-bottom: 3.75rem;
+}
+
+.page-title :first-child {
+  font-weight: bold;
+  font-size: 2.1rem;
+}
+
+.page-title :last-child {
+  font-weight: 300;
+  font-size: 1.75rem;
+  margin-left: 1.03rem;
+}
+
+.page-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-inputs input {
+  height: 3.3rem;
+  outline: 0;
+  border: 0;
+  background: rgba(000, 000, 000, 0.32);
+}
+
+.input-password {
+  margin-top: 1rem;
+}
+
+.input-email,
+.input-password {
+  position: relative;
+}
+
+.input-email input,
+.input-password input {
+  width: 23rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.5rem 0 0 1rem;
+  color: #fff;
+}
+
+.input-email label,
+.input-password label {
+  position: absolute;
+  transform: translate(1rem, 0.5rem) scale(1);
+  font-size: 0.75rem;
+}
+
+.input-password button {
+  background: #fff;
+  border: none;
+  height: 2.25rem;
+  width: 5.3125rem;
+  border-radius: 2.75rem;
+
+  color: #b22e6f;
+  font-size: 1rem;
+  font-weight: bold;
+
+  position: absolute;
+  transform: translate(-6rem, 0.8rem) scale(1);
+
+  cursor: pointer;
+}
+
+@media (max-width: 45rem) {
+  #home-page {
+    margin: auto;
+  }
+
+  .page-content {
+    margin: auto;
+    max-width: 28.125rem;
+  }
+}
