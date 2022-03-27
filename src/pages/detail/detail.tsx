@@ -4,10 +4,17 @@ import { ReactElement } from 'react'
 // Image
 import Book from '../../assets/book.svg'
 
+// Icons
+import { FiX as FiXIcon } from 'react-icons/fi'
+
 // Styles
 import './styles.css'
 
-const Detail = (): ReactElement => (
+interface DetailProps {
+  onClick: (arg: any) => void
+}
+
+const Detail = ({ onClick }: DetailProps): ReactElement => (
   <div className="page-overlay">
     <div className="detail-page">
       <div className="page-content">
@@ -52,15 +59,18 @@ const Detail = (): ReactElement => (
           <div className="content-description">
             <p>Resenha da editora</p>
             <span>
-              Resenha da editora The subject of “design thinking” is the rage at business schools, throughout
-              corporations, and increasingly in the popular press—due in large part to the work of IDEO, a leading
-              design firm, and its celebrated CEO, Tim Brown, who uses this book to show how the techniques and
-              strategies of design belong at every level of business.
+              The subject of “design thinking” is the rage at business schools, throughout corporations, and
+              increasingly in the popular press—due in large part to the work of IDEO, a leading design firm, and its
+              celebrated CEO, Tim Brown, who uses this book to show how the techniques and strategies of design belong
+              at every level of business.
             </span>
           </div>
         </div>
       </div>
     </div>
+    <button type="button" onClick={onClick}>
+      <FiXIcon />
+    </button>
   </div>
 )
 
