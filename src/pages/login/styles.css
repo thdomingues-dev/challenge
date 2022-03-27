@@ -10,7 +10,7 @@
   color: #fff;
 }
 
-.page-content {
+.login-page-content {
   margin-left: 6.625rem;
   max-width: 28.125rem;
 }
@@ -90,7 +90,7 @@
     padding: 0 1rem;
   }
 
-  .page-content {
+  .login-page-content {
     margin: auto;
     max-width: 28.125rem;
   }

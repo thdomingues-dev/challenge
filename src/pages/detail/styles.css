@@ -43,7 +43,7 @@
   cursor: pointer;
 }
 
-.page-content {
+.detail-page-content {
   width: 100%;
   max-width: 17.25rem;
   margin: 0;
@@ -52,7 +52,7 @@
   align-items: flex-start;
 }
 
-.page-content img {
+.detail-page-content img {
   width: 21.8125rem;
   max-height: 33.2rem;
 }

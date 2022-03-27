@@ -1,12 +1,19 @@
 // Packages
 import { ReactElement } from 'react'
 
-// Pages
-import { Login, Home, Detail } from './pages'
+// Context
+import { AuthProvider } from './contexts/auth'
+
+// Routes
+import Routes from './routes'
 
 // Styles
 import './index.css'
 
-const App = (): ReactElement => <Home />
+const App = (): ReactElement => (
+  <AuthProvider>
+    <Routes />
+  </AuthProvider>
+)
 
 export default App

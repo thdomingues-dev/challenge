@@ -16,8 +16,6 @@ import './styles.css'
 const Home = (): ReactElement => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
 
-  console.log(isDialogOpen)
-
   return (
     <div id="home-page">
       <Header label="ioasys" description="Books" message="Bem vindo" userName="Thales" />

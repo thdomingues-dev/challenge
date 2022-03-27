@@ -17,7 +17,7 @@ interface DetailProps {
 const Detail = ({ onClick }: DetailProps): ReactElement => (
   <div className="page-overlay">
     <div className="detail-page">
-      <div className="page-content">
+      <div className="detail-page-content">
         <img src={Book} alt="book" />
 
         <div className="content">
