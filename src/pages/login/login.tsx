@@ -5,7 +5,7 @@ import { ReactElement } from 'react'
 import './styles.css'
 
 const Login = (): ReactElement => (
-  <div id="home-page">
+  <div id="login-page">
     <main className="page-content">
       <div className="page-title">
         <span>ioasys</span>

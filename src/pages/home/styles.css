@@ -1,0 +1,8 @@
+#home-page {
+  background: url('../../assets/home-background.svg') no-repeat center;
+  background-size: cover;
+  height: 100vh;
+
+  margin: 0 auto;
+  padding: 0 7.1875rem;
+}

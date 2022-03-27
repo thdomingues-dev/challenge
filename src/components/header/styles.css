@@ -1,0 +1,38 @@
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding-top: 2.265rem;
+}
+
+.left-side-header strong {
+  font-size: 2rem;
+  margin-right: 1.0375rem;
+}
+
+.left-side-header span {
+  font-weight: 300;
+  font-size: 1.75rem;
+}
+
+.right-side-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-header {
+  height: 2rem;
+  width: 2rem;
+  margin-left: 1rem;
+  background: transparent;
+  border: solid 0.15rem rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}

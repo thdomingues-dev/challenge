@@ -1,5 +1,5 @@
-#home-page {
-  background: url('../assets/background.svg') no-repeat center center fixed;
+#login-page {
+  background: url('../../assets/background.svg') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
 
@@ -53,7 +53,7 @@
 
 .input-email input,
 .input-password input {
-  width: 23rem;
+  width: 22rem;
   border-radius: 0.25rem;
   font-size: 1rem;
   padding: 0.5rem 0 0 1rem;
@@ -87,10 +87,17 @@
 @media (max-width: 45rem) {
   #home-page {
     margin: auto;
+    padding: 0 1rem;
   }
 
   .page-content {
     margin: auto;
     max-width: 28.125rem;
+  }
+
+  .input-email input,
+  .input-password input {
+    width: auto;
+    min-width: 17rem;
   }
 }
