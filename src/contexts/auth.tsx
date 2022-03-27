@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const storagedRefresh = localStorage.getItem('@ioasys:refresh-token')
 
     if (storagedUser && storagedToken && storagedRefresh) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${storagedToken}`
+      api.defaults.headers.common['Authorization'] = 'Bearer '.concat(JSON.parse(storagedToken))
 
       setUser(JSON.parse(storagedUser))
       setLogged(true)

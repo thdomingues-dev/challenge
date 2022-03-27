@@ -35,32 +35,40 @@ const useWindowSize = (): Size => {
   return windowSize
 }
 
-const Pagination = (): ReactElement => {
+interface PaginationProps {
+  current: number
+  total: number
+  onNextPage: () => void
+  onPreviousPage: () => void
+}
+
+const Pagination = (props: PaginationProps): ReactElement => {
   const windowSize = useWindowSize()
+  const { current = 1, total = 1, onNextPage, onPreviousPage } = props
 
   const isSmallScren = windowSize?.width && windowSize.width < 576
 
   return !isSmallScren ? (
     <div className="page-pagination">
       <p>
-        Página <strong>1</strong> de <strong>100</strong>
+        Página <strong>{current}</strong> de <strong>{total}</strong>
       </p>
-      <div className="icon-previous-page">
+      <div className="icon-previous-page" onClick={onPreviousPage}>
         <FiChevronLeftIcon />
       </div>
-      <div className="icon-next-page">
+      <div className="icon-next-page" onClick={onNextPage}>
         <FiChevronRightIcon />
       </div>
     </div>
   ) : (
     <div className="page-pagination">
-      <div className="icon-previous-page">
+      <div className="icon-previous-page" onClick={onPreviousPage}>
         <FiChevronLeftIcon />
       </div>
       <p>
-        Página <strong>1</strong> de <strong>100</strong>
+        Página <strong>{current}</strong> de <strong>{total}</strong>
       </p>
-      <div className="icon-next-page">
+      <div className="icon-next-page" onClick={onNextPage}>
         <FiChevronRightIcon />
       </div>
     </div>

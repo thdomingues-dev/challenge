@@ -1,77 +1,80 @@
 // Packages
 import { ReactElement } from 'react'
 
-// Image
-import Book from '../../assets/book.svg'
-
 // Icons
 import { FiX as FiXIcon } from 'react-icons/fi'
 
 // Styles
 import './styles.css'
 
+// Api
+import { useGetBookByIdQuery } from '../../services/books-api'
+
+// Image
+import DefaultBook from '../../assets/default-book.svg'
+
 interface DetailProps {
+  bookId: string
   onClick: (arg: any) => void
 }
 
-const Detail = ({ onClick }: DetailProps): ReactElement => (
-  <div className="page-overlay">
-    <div className="detail-page">
-      <div className="detail-page-content">
-        <img src={Book} alt="book" />
+const Detail = ({ onClick, bookId: id }: DetailProps): ReactElement | null => {
+  const { data: book, isFetching: loading } = useGetBookByIdQuery({ id })
 
-        <div className="content">
-          <p>Change By Design Second line exampl...</p>
-          <span>Tim Brown, Julie Zhuo, Fried Maximiilian</span>
+  return !loading && book ? (
+    <div className="page-overlay">
+      <div className="detail-page">
+        <div className="detail-page-content">
+          <img src={book?.imageUrl || DefaultBook} alt="book" />
 
-          <main>
-            <p>INFORMACÕES</p>
-            <div className="content-information">
-              <p>Páginas</p>
-              <span>500 páginas</span>
-            </div>
-            <div className="content-information">
-              <p>Editora</p>
-              <span>Editora Loyola</span>
-            </div>
-            <div className="content-information">
-              <p>Publicacão</p>
-              <span>2022</span>
-            </div>
-            <div className="content-information">
-              <p>Idioma</p>
-              <span>Ingles</span>
-            </div>
-            <div className="content-information">
-              <p>Título Org</p>
-              <span>asdsadsd</span>
-            </div>
-            <div className="content-information">
-              <p>ISS</p>
-              <span>0909323</span>
-            </div>
-            <div className="content-information">
-              <p>ISS</p>
-              <span>0909-sadasd-323</span>
-            </div>
-          </main>
+          <div className="content">
+            <p>{book?.title}</p>
+            <span>{book?.authors[0]}</span>
 
-          <div className="content-description">
-            <p>Resenha da editora</p>
-            <span>
-              The subject of “design thinking” is the rage at business schools, throughout corporations, and
-              increasingly in the popular press—due in large part to the work of IDEO, a leading design firm, and its
-              celebrated CEO, Tim Brown, who uses this book to show how the techniques and strategies of design belong
-              at every level of business.
-            </span>
+            <main>
+              <p>INFORMACÕES</p>
+              <div className="content-information">
+                <p>Páginas</p>
+                <span>{book?.pageCount}</span>
+              </div>
+              <div className="content-information">
+                <p>Editora</p>
+                <span>{book?.publisher}</span>
+              </div>
+              <div className="content-information">
+                <p>Publicação</p>
+                <span>{book?.published}</span>
+              </div>
+              <div className="content-information">
+                <p>Idioma</p>
+                <span>{book?.language}</span>
+              </div>
+              <div className="content-information">
+                <p>Título Original</p>
+                <span>{book?.title}</span>
+              </div>
+              <div className="content-information">
+                <p>ISBN-10</p>
+                <span>{book?.isbn10}</span>
+              </div>
+              <div className="content-information">
+                <p>ISBN-13</p>
+                <span>{book?.isbn13}</span>
+              </div>
+            </main>
+
+            <div className="content-description">
+              <p>Resenha da editora</p>
+              <span>{book?.description}</span>
+            </div>
           </div>
         </div>
       </div>
+      <button type="button" onClick={onClick}>
+        <FiXIcon />
+      </button>
     </div>
-    <button type="button" onClick={onClick}>
-      <FiXIcon />
-    </button>
-  </div>
-)
+  ) : null
+}
 
 export default Detail
