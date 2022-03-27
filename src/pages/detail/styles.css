@@ -1,0 +1,91 @@
+.page-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(0.07rem);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-page {
+  background: #ffffff;
+  width: 100%;
+  max-height: 38rem;
+  max-width: 50rem;
+  padding: 3rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.32);
+  position: relative;
+}
+
+.page-content {
+  width: 100%;
+  margin: 0;
+
+  display: flex;
+  align-items: flex-start;
+}
+
+.page-content img {
+  max-width: 21.8125rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: 3rem;
+}
+
+.content p {
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  text-align: start;
+  min-width: 17.25rem;
+}
+
+.content span {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  text-align: start;
+  color: #ab2680;
+}
+
+.content main p,
+.content-description p {
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  min-width: 0;
+}
+
+.content main > p,
+.content-description p {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.content-information {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-information span {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: #999999;
+}
+
+.content-description span {
+  font-size: 0.75rem;
+  color: #999999;
+}

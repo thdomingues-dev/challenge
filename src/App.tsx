@@ -2,7 +2,7 @@
 import { ReactElement } from 'react'
 
 // Pages
-import { Login, Home } from './pages'
+import { Login, Home, Detail } from './pages'
 
 // Styles
 import './index.css'
