@@ -1,0 +1,52 @@
+.page-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  padding-bottom: 1rem;
+}
+
+.page-pagination p {
+  margin-right: 1rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+.icon-next-page {
+  margin-left: 0.5rem;
+}
+
+.icon-previous-page,
+.icon-next-page {
+  height: 2rem;
+  width: 2rem;
+  background: transparent;
+  border: solid 0.15rem rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+@media (max-width: 36rem) {
+  .page-pagination {
+    justify-content: center;
+  }
+
+  .page-pagination p {
+    margin: 0;
+  }
+
+  .icon-next-page {
+    margin-left: 1rem;
+  }
+
+  .icon-previous-page {
+    margin-right: 1rem;
+  }
+}

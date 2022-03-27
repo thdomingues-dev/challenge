@@ -9,6 +9,7 @@
 
 .page-grid {
   margin-top: 2.625rem;
+  margin-bottom: 1rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -65,4 +66,30 @@
   font-weight: 400;
   line-height: 1.25rem;
   color: #999999;
+}
+
+@media (max-width: 100rem) {
+  #home-page {
+    margin: auto;
+    padding: 0 1rem;
+  }
+
+  .page-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 70rem) {
+  .page-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 50rem) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }

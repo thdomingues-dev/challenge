@@ -2,7 +2,7 @@
 import { ReactElement } from 'react'
 
 // Components
-import { Header } from '../../components'
+import { Header, Pagination } from '../../components'
 
 // Image
 import Book from '../../assets/book.svg'
@@ -256,6 +256,7 @@ const Home = (): ReactElement => (
         </div>
       </div>
     </div>
+    <Pagination />
   </div>
 )
 

@@ -36,3 +36,9 @@
 
   cursor: pointer;
 }
+
+@media (max-width: 36rem) {
+  .right-side-header span {
+    display: none;
+  }
+}
