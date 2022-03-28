@@ -23,7 +23,7 @@ const Home = (): ReactElement => {
   const { data, isFetching: loading, isError: error } = useGetBooksQuery({ page, amount: 12 })
 
   const books = data?.data || []
-  const totalPages = Math.floor(data?.totalPages || 0)
+  const totalPages = Math.floor(data?.totalPages || 1)
 
   const onNextPage = () => (page === totalPages ? setPage(page) : setPage(page + 1))
   const onPreviousPage = () => (page === 1 ? setPage(1) : setPage(page - 1))
@@ -35,7 +35,7 @@ const Home = (): ReactElement => {
 
   return (
     <div id="home-page">
-      <Header label="ioasys" description="Books" message="Bem vindo" userName="Thales" />
+      <Header label="ioasys" description="Books" message="Bem vindo" />
       <div className="page-grid">
         {!loading && books ? (
           books.map((book, index) => (

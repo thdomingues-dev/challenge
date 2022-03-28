@@ -1,25 +1,26 @@
 // Packages
+import { AxiosResponseHeaders } from 'axios'
 import { createContext, useState, useEffect, ReactNode } from 'react'
 
 // Api
 import { api, signIn as signInService, refreshToken } from '../services'
-
-interface AuthContextProps {
-  logged: boolean
-  user: object
-  signIn: (email: string, password: string) => Promise<void>
-  signOut: () => void
-}
-
-interface AuthProviderProps {
-  children: ReactNode
-}
 
 interface UserProps {
   id: string | undefined
   name: string | undefined
   birthdate: string | undefined
   gender: string | undefined
+  email: string | undefined
+}
+interface AuthContextProps {
+  logged: boolean
+  user: UserProps
+  signIn: (email: string, password: string) => Promise<AxiosResponseHeaders>
+  signOut: () => void
+}
+
+interface AuthProviderProps {
+  children: ReactNode
 }
 
 const AuthContext = createContext({} as AuthContextProps)
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     name: undefined,
     birthdate: undefined,
     gender: undefined,
+    email: undefined,
   })
   const [logged, setLogged] = useState(false)
 
@@ -38,34 +40,45 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const storagedToken = localStorage.getItem('@ioasys:token')
     const storagedRefresh = localStorage.getItem('@ioasys:refresh-token')
 
-    if (storagedUser && storagedToken && storagedRefresh) {
+    if (
+      storagedUser &&
+      storagedToken &&
+      storagedRefresh &&
+      storagedToken !== 'null' &&
+      storagedToken !== 'undefined' &&
+      storagedRefresh !== 'null' &&
+      storagedRefresh !== 'undefined'
+    ) {
       setLogged(true)
       setUser(JSON.parse(storagedUser))
 
-      const tokens: any = await refreshToken(JSON.parse(storagedRefresh))
+      const tokens: any = await refreshToken(storagedRefresh || '')
 
       api.defaults.headers.common['Authorization'] = 'Bearer '.concat(tokens.authorization)
 
-      localStorage.setItem('@ioasys:token', JSON.stringify(tokens.authorization))
-      localStorage.setItem('@ioasys:refresh-token', JSON.stringify(tokens['refresh-token']))
+      localStorage.setItem('@ioasys:token', tokens.authorization)
+      localStorage.setItem('@ioasys:refresh-token', tokens['refresh-token'])
     } else {
+      localStorage.clear()
       setLogged(false)
     }
   }
 
   const signIn = async (email: string, password: string) => {
-    const { data: user, headers = {} } = await signInService(email, password)
+    const response: any = await signInService(email, password)
 
-    if (user && headers?.authorization && headers['refresh-token']) {
-      localStorage.setItem('@ioasys:user', JSON.stringify(user))
-      localStorage.setItem('@ioasys:token', JSON.stringify(headers.authorization))
-      localStorage.setItem('@ioasys:refresh-token', JSON.stringify(headers['refresh-token']))
+    if (response?.data && response?.headers?.authorization && response?.headers['refresh-token']) {
+      localStorage.setItem('@ioasys:user', JSON.stringify(response?.data))
+      localStorage.setItem('@ioasys:token', response?.headers.authorization)
+      localStorage.setItem('@ioasys:refresh-token', response?.headers['refresh-token'])
 
-      api.defaults.headers.common['Authorization'] = `Bearer ${headers.authorization}`
+      api.defaults.headers.common['Authorization'] = `Bearer ${response?.headers.authorization}`
 
-      setUser(user)
+      setUser(response?.data)
       setLogged(true)
     }
+
+    return response
   }
 
   const signOut = () => {

@@ -15,7 +15,7 @@ import DefaultBook from '../../assets/default-book.svg'
 
 interface DetailProps {
   bookId: string
-  onClick: (arg: any) => void
+  onClick: () => void
 }
 
 const Detail = ({ onClick, bookId: id }: DetailProps): ReactElement | null => {

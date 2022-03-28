@@ -14,12 +14,12 @@ interface HeaderProps {
   label: string
   description: string
   message: string
-  userName: string
+  userName?: string
 }
 
 const Header = (props: HeaderProps): ReactElement => {
-  const { label, description, message, userName } = props
-  const { signOut } = useContext(AuthContext)
+  const { signOut, user } = useContext(AuthContext)
+  const { label, description, message, userName = user?.name } = props
 
   const handleSignOut = () => signOut()
 
@@ -33,7 +33,7 @@ const Header = (props: HeaderProps): ReactElement => {
       <div className="right-side-header">
         <span>
           {message.concat(', ')}
-          <strong>{userName.concat('!')}</strong>
+          <strong>{String(userName).concat('!')}</strong>
         </span>
         <div className="icon-header" onClick={handleSignOut}>
           <FiLogOutIcon fontSize={16} />

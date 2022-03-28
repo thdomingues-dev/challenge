@@ -4,6 +4,9 @@ import { ReactElement, useState, useContext, FormEvent } from 'react'
 // Context
 import AuthContext from '../../contexts/auth'
 
+// Assets
+import Vector from '../../assets/vector.svg'
+
 // Styles
 import './styles.css'
 
@@ -12,10 +15,22 @@ const Login = (): ReactElement => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isWrongCredential, setIsWrongCredential] = useState(false)
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    signIn(email, password)
+
+    const response = await signIn(email, password)
+
+    if (
+      response?.message &&
+      response.message.includes('Usuário ou senha inválida') &&
+      Number(response.status) === 401
+    ) {
+      setIsWrongCredential(true)
+    } else {
+      setIsWrongCredential(false)
+    }
   }
 
   return (
@@ -51,6 +66,12 @@ const Login = (): ReactElement => {
             <button type="submit">Entrar</button>
           </div>
         </form>
+        {isWrongCredential && (
+          <div className="page-wrong-credentials">
+            <img src={Vector} alt="Vector" />
+            <span>Email e/ou senha incorretos.</span>
+          </div>
+        )}
       </main>
     </div>
   )

@@ -1,5 +1,5 @@
 // Packages
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 
 const AUTHORIZATION = localStorage.getItem('@ioasys:token') || ''
 
@@ -49,16 +49,53 @@ interface GetBookByIdPayload {
   title: string
 }
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'https://books.ioasys.com.br/api/v1',
+  prepareHeaders: headers => {
+    headers.set('authorization', `Bearer ${AUTHORIZATION}`)
+    return headers
+  },
+})
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions,
+) => {
+  let result: any = await baseQuery(args, api, extraOptions)
+
+  if (result.error || result.error?.status === 401) {
+    const refreshResult: any = await baseQuery(
+      {
+        url: '/auth/refresh-token',
+        body: { refreshToken: localStorage.getItem('@ioasys:refresh-token') },
+        method: 'POST',
+      },
+      api,
+      extraOptions,
+    )
+
+    if (refreshResult.meta) {
+      localStorage.setItem('@ioasys:token', refreshResult.meta.response.headers.get('Authorization'))
+      localStorage.setItem('@ioasys:refresh-token', refreshResult.meta.response.headers.get('refresh-token'))
+
+      const reAuthBaseQuery = fetchBaseQuery({
+        baseUrl: 'https://books.ioasys.com.br/api/v1',
+        prepareHeaders: headers => {
+          headers.set('authorization', `Bearer ${refreshResult.meta.response.headers.get('Authorization')}`)
+          return headers
+        },
+      })
+
+      result = await reAuthBaseQuery(args, api, extraOptions)
+    }
+  }
+
+  return result
+}
+
 export const booksApi = createApi({
   reducerPath: 'books',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://books.ioasys.com.br/api/v1',
-    prepareHeaders: headers => {
-      headers.set('authorization', `Bearer ${JSON.parse(AUTHORIZATION)}`)
-
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   keepUnusedDataFor: 3600,
   endpoints: builder => ({
     getBooks: builder.query<GetBooksPayload, GetBooksArg>({
