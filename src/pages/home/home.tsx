@@ -25,8 +25,8 @@ const Home = (): ReactElement => {
   const books = data?.data || []
   const totalPages = Math.floor(data?.totalPages || 0)
 
-  const onNextPage = () => setPage(page + 1)
-  const onPreviousPage = () => setPage(page - 1)
+  const onNextPage = () => (page === totalPages ? setPage(page) : setPage(page + 1))
+  const onPreviousPage = () => (page === 1 ? setPage(1) : setPage(page - 1))
 
   const handleClick = (bookId: string) => {
     setSelectedBook(bookId)

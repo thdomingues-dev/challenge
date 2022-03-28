@@ -14,7 +14,7 @@
 
 .detail-page {
   background: #ffffff;
-  width: 100%;
+  /* width: 100%; */
   max-height: 38rem;
   max-width: 42.1rem;
   padding: 3rem;
@@ -45,7 +45,8 @@
 
 .detail-page-content {
   width: 100%;
-  max-width: 17.25rem;
+  /* max-width: 17.25rem; */
+  min-width: 17.25rem;
   margin: 0;
 
   display: flex;

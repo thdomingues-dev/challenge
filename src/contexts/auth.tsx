@@ -2,7 +2,7 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
 
 // Api
-import { api, signIn as signInService } from '../services'
+import { api, signIn as signInService, refreshToken } from '../services'
 
 interface AuthContextProps {
   logged: boolean
@@ -33,16 +33,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   })
   const [logged, setLogged] = useState(false)
 
-  const loadStoragedData = () => {
+  const loadStoragedData = async () => {
     const storagedUser = localStorage.getItem('@ioasys:user')
     const storagedToken = localStorage.getItem('@ioasys:token')
     const storagedRefresh = localStorage.getItem('@ioasys:refresh-token')
 
     if (storagedUser && storagedToken && storagedRefresh) {
-      api.defaults.headers.common['Authorization'] = 'Bearer '.concat(JSON.parse(storagedToken))
-
-      setUser(JSON.parse(storagedUser))
       setLogged(true)
+      setUser(JSON.parse(storagedUser))
+
+      const tokens: any = await refreshToken(JSON.parse(storagedRefresh))
+
+      api.defaults.headers.common['Authorization'] = 'Bearer '.concat(tokens.authorization)
+
+      localStorage.setItem('@ioasys:token', JSON.stringify(tokens.authorization))
+      localStorage.setItem('@ioasys:refresh-token', JSON.stringify(tokens['refresh-token']))
     } else {
       setLogged(false)
     }
